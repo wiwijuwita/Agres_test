@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,10 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
+});
+
+Route::middleware('auth:api')->prefix('product')->group( function () {
+    Route::get('lists', [ProductController::class, 'lists']);
+    Route::post('add', [ProductController::class, 'store']);
+    Route::post('delete', [ProductController::class, 'destroy']);
 });
